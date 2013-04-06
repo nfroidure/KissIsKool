@@ -1,296 +1,296 @@
 <html>
-<head>
-<title>KissIsGood : Carousels / Tabs / Displays</title>
-<meta charset="utf-8" />
-<script type="text/javascript" src="mootools-core-1.4.5.js"></script>
-<script type="text/javascript" src="webdisplay.js"></script>
-<style type="text/css">
-	* { margin:0; padding:0; }
-	/* Root style */
-	div.root { width:500px; padding:15px 30px; margin:0 auto; background:#dbdbdb; }
-	h1, h2 { margin:0 0 15px; }
-	hr { margin:15px 0; border:1px solid #000; background:#000; }
-	/* Generic style */
-	.carbox { width:100%; overflow:hidden; height:180px; margin:0 0 15px 0; }
-	.carbox.undetected .previous, .carbox.undetected .next { display:none; }
-	.carbox .carpanel { position:absolute; width:500px; height:150px; }
-	.carbox .carpanel.selected { display:block; z-index:1; }
-	.carbox .carpanel.unselected { display:block; z-index:0; }
-	.carbox .carmenu { height:30px; }
-	.carbox .carmenu li { float:left; padding:0 10px; list-style-type:none; line-height:30px;
-		text-shadow:1px 1px 1px #000; font-weight:bold;
-		}
-	.carbox .carmenu li.selected { background:#fff; text-shadow:1px 1px 1px #000; }
-	.carbox .carmenu li a { color:#fff; text-decoration:none; }
-	.carbox .carmenu li.selected a { color:#000; text-decoration:none; }
-	/* Additionnal styles */
-	.carbox { background:#000; }
-	.carbox .carpanel { background:#dbdbdb; }
-	.carbox .carpanel.selected { background:#fff; }
-	.carbox .carpanel h3 { margin:15px 30px; }
-	.carbox .carpanel p { margin:0 30px 15px 30px; }
-	/* Disappear */
-	.carbox.disappear .carpanel { opacity:0; }
-	.carbox.disappear .carpanel.selected { opacity:1;
-		transition:opacity 1s linear;
-		-webkit-transition:opacity 0.5s linear;
-		-moz-transition:opacity 0.5s linear;
-		-ms-transition:opacity 0.5s linear;
-		-o-transition:opacity 0.5s linear;
-		}
-	.carbox.disappear .carpanel.unselected { opacity:0;
-		transition:opacity 1s linear;
-		-webkit-transition:opacity 1s linear;
-		-moz-transition:opacity 1s linear;
-		-ms-transition:opacity 1s linear;
-		-o-transition:opacity 1s linear;
-		}
-	/* Fall */
-	.carbox.fall .carpanel { opacity:0; height:0; }
-	.carbox.fall .carpanel.selected { height:150px; opacity:1;
-		transition:height 0.2s linear;
-		-webkit-transition:height 0.2s linear;
-		-moz-transition:height 0.2s linear;
-		-ms-transition:height 0.2s linear;
-		-o-transition:height 0.2s linear;
-		}
-	/* Rotate */
-	@-webkit-keyframes rotateselected {
-	    0% {
-		-webkit-transform: rotate(0deg);
-		opacity:0;
-	    }
-	    50% {
-		-webkit-transform: rotate(0deg);
-		opacity:0;
-	    }
-	    51% {
-		-webkit-transform: rotate(0deg);
-		opacity:1;
-	    }
-	    90% {
-		-webkit-transform: rotate(-5deg);
-		opacity:1;
-	    }
-	    100% {
-		-webkit-transform: rotate(0deg);
-		opacity:1;
-	    }
-	}
-	@-webkit-keyframes rotateunselected {
-	    0% {
-		-webkit-transform: rotate(0deg);
-		opacity:1;
-	    }
-	    25% {
-		-webkit-transform: rotate(5deg);
-		opacity:1;
-	    }
-	    50% {
-		-webkit-transform: rotate(0deg);
-		opacity:1;
-	    }
-	    51% {
-		-webkit-transform: rotate(0deg);
-		opacity:0;
-	    }
-	    100% {
-		-webkit-transform: rotate(0deg);
-		opacity:0;
-	    }
-	}
-	.carbox.rotate .carpanel.selected { opacity:1;
-		-webkit-animation-name: rotateselected;
-		-webkit-animation-duration: 0.3s;
-		-webkit-animation-iteration-count: 1;
-		}
-	.carbox.rotate .carpanel.unselected { opacity:1;
-		-webkit-animation-name: rotateunselected;
-		-webkit-animation-duration: 0.3s;
-		-webkit-animation-iteration-count: 1;
-		}
-	/* Translate */
-	@-webkit-keyframes translateselected {
-	    0% {
-		-webkit-transform: translate(0);
-		opacity:0;
-	    }
-	    50% {
-		-webkit-transform: translate(0);
-		opacity:0;
-	    }
-	    51% {
-		-webkit-transform: translate(0);
-		opacity:1;
-	    }
-	    90% {
-		-webkit-transform: translate(50px);
-		opacity:1;
-	    }
-	    100% {
-		-webkit-transform: translate(0);
-		opacity:1;
-	    }
-	}
-	@-webkit-keyframes translateunselected {
-	    0% {
-		-webkit-transform: translate(0);
-		opacity:1;
-	    }
-	    25% {
-		-webkit-transform: translate(-50px);
-		opacity:1;
-	    }
-	    50% {
-		-webkit-transform: translate(0);
-		opacity:1;
-	    }
-	    51% {
-		-webkit-transform: translate(0);
-		opacity:0;
-	    }
-	    100% {
-		-webkit-transform: translate(0);
-		opacity:0;
-	    }
-	}
-	.carbox.translate .carpanel.selected { opacity:1;
-		-webkit-animation-name: translateselected;
-		-webkit-animation-duration: 0.2s;
-		-webkit-animation-iteration-count: 1;
-		}
-	.carbox.translate .carpanel.unselected { opacity:1;
-		-webkit-animation-name: translateunselected;
-		-webkit-animation-duration: 0.2s;
-		-webkit-animation-iteration-count: 1;
-		}
-	/* SimpleDisplay */
-	.simpledisplay { height:150px; }
-</style>
-</head>
-<body>
-<div class="root">
-<h1>WebDisplay</h1>
-<p>A MooTools component to display stacked content like carousels, tabs etc...</p>
-<hr />
-<h2>Carousels</h2>
-<div class="carbox undetected disappear">
-	<ul class="carmenu">
-		<li class="previous"><a href="#paneln" title="Go to the previous panel" rel="prev">Previous</a></li>
-		<li class="selected"><a href="#panel1" title="Go to the panel #1">Panel 1</a></li>
-		<li><a href="#panel2" title="Go to the panel #2">Panel 2</a></li>
-		<li class="next"><a href="#panel2" title="Go to the next panel" rel="next">Next</a></li>
-	</ul>
-	<div class="carpanel selected" id="panel1">
-		<h3>Panel #1</h3>
-		<p>This markup is what you know as a carousel/tabbox.</p>
-	</div>
-	<div class="carpanel" id="panel2">
-		<h3>Panel #2</h3>
-		<p>It was implemented with MooTools.</p>
-	</div>
-</div>
-<div class="carbox undetected fall">
-	<ul class="carmenu">
-		<li class="previous"><a href="#panel2n" title="Go to the previous panel" rel="prev">Previous</a></li>
-		<li class="selected"><a href="#panel21" title="Go to the panel #1">Panel 1</a></li>
-		<li><a href="#panel22" title="Go to the panel #2">Panel 2</a></li>
-		<li><a href="#panel2n" title="Go to the panel #n">Panel n</a></li>
-		<li class="next"><a href="#panel22" title="Go to the next panel" rel="next">Next</a></li>
-	</ul>
-	<div class="carpanel selected" id="panel21">
-		<h3>Panel #1</h3>
-		<p>It is specially designed to work with CSS3 transitions. It just applies a few classes for your CSS.</p>
-		
-	</div>
-	<div class="carpanel" id="panel22">
-		<h3>Panel #2</h3>
-		<p>.selected to selected tab/tabbutton, .unselected to previously selected tab/tabbutton.</p>
-	</div>
-	<div class="carpanel" id="panel2n">
-		<h3>Panel #n</h3>
-		<p>.notdetected is removed at start, .paused is added when paused.</p>
-	</div>
-</div>
-<div class="carbox undetected translate">
-	<ul class="carmenu">
-		<li class="previous"><a href="#panel3n" title="Go to the previous panel" rel="prev">Previous</a></li>
-		<li class="selected"><a href="#panel31" title="Go to the panel #1">Panel 1</a></li>
-		<li><a href="#panel32" title="Go to the panel #2">Panel 2</a></li>
-		<li><a href="#panel3n" title="Go to the panel #n">Panel n</a></li>
-		<li class="next"><a href="#panel32" title="Go to the next panel" rel="next">Next</a></li>
-	</ul>
-	<div class="carpanel selected" id="panel31">
-		<h3>Panel #1</h3>
-		<p>If you click on <a href="#panel32">this link</a>, the next element will be selected.</p>
-	</div>
-	<div class="carpanel" id="panel32">
-		<h3>Panel #2</h3>
-		<p>Now, the hash in the address bar has changed. If you refresh, this tab will be selected by default.</p>
-	</div>
-	<div class="carpanel" id="panel3n">
-		<h3>Panel #n</h3>
-		<p>The same behavior will occur for any button allowing you users to share their page display transparently.</p>
-	</div>
-</div>
-<div class="carbox undetected rotate freq10">
-	<ul class="carmenu">
-		<li class="previous"><a href="#panel4n" title="Go to the previous panel" rel="prev">Previous</a></li>
-		<li class="selected"><a href="#panel41" title="Go to the panel #1">Panel 1</a></li>
-		<li><a href="#panel42" title="Go to the panel #2">Panel 2</a></li>
-		<li><a href="#panel4n" title="Go to the panel #n">Panel n</a></li>
-		<li class="next"><a href="#panel42" title="Go to the next panel" rel="next">Next</a></li>
-	</ul>
-	<div class="carpanel selected" id="panel41">
-		<h3>Panel #1</h3>
-		<p>This version is changing each 5s.</p>
-	</div>
-	<div class="carpanel" id="panel42">
-		<h3>Panel #2</h3>
-		<p>Of course, it stops changin' if you go over...</p>
-	</div>
-	<div class="carpanel" id="panel4n">
-		<h3>Panel #n</h3>
-		<p>I was made thanks to a freq5 class on the root element.</p>
-	</div>
-</div>
-<hr />
-<h2>Pages</h2>
-<div class="carbox undetected fall">
-	<ul class="carmenu">
-		<li class="previous"><a href="#pagen" title="Go to the previous page" rel="prev">Previous</a></li>
-		<li class="next"><a href="#page2" title="Go to the next page" rel="next">Next</a></li>
-	</ul>
-	<div class="carpanel selected" id="page1">
-		<h3>Page #1</h3>
-		<p>This version behaves like a pager.</p>
-	</div>
-	<div class="carpanel" id="page2">
-		<h3>Page #2</h3>
-		<p>It's very simple.</p>
-	</div>
-	<div class="carpanel" id="pagen">
-		<h3>Page #n</h3>
-		<p>But efficient.</p>
-	</div>
-</div>
-<hr />
-<h2>Simple display</h2>
-<div class="carbox undetected fall simpledisplay freq5">
-	<div class="carpanel selected" id="display1">
-		<h3>No menu</h3>
-		<p>This simple display just loop beetween the different panels.</p>
-	</div>
-	<div class="carpanel" id="displayn">
-		<h3>Just contents</h3>
-		<p>
-			This is the simplest usage of this script. Just add a class
-			like freq5 to change display each 5 seconds.
-		</p>
-	</div>
-</div>
-<hr />
-<p>KissIsGood is a simple project made for small websites that want to Keep It Simple and Smart with MooTools.</p>
-</div>
-</body>
+	<head>
+		<title>KissIsKool : Carousels / Tabs / Displays</title>
+		<meta charset="utf-8" />
+		<style type="text/css">
+			* { margin:0; padding:0; }
+			/* Root style */
+			div.root { width:500px; padding:15px 30px; margin:0 auto; background:#dbdbdb; }
+			h1, h2 { margin:0 0 15px; }
+			hr { margin:15px 0; border:1px solid #000; background:#000; }
+			/* Generic style */
+			.carbox { width:100%; overflow:hidden; height:180px; margin:0 0 15px 0; }
+			.carbox.undetected .previous, .carbox.undetected .next { display:none; }
+			.carbox .carpanel { position:absolute; width:500px; height:150px; }
+			.carbox .carpanel.selected { display:block; z-index:1; }
+			.carbox .carpanel.unselected { display:block; z-index:0; }
+			.carbox .carmenu { height:30px; }
+			.carbox .carmenu li { float:left; padding:0 10px; list-style-type:none; line-height:30px;
+				text-shadow:1px 1px 1px #000; font-weight:bold;
+				}
+			.carbox .carmenu li.selected { background:#fff; text-shadow:1px 1px 1px #000; }
+			.carbox .carmenu li a { color:#fff; text-decoration:none; }
+			.carbox .carmenu li.selected a { color:#000; text-decoration:none; }
+			/* Additionnal styles */
+			.carbox { background:#000; }
+			.carbox .carpanel { background:#dbdbdb; }
+			.carbox .carpanel.selected { background:#fff; }
+			.carbox .carpanel h3 { margin:15px 30px; }
+			.carbox .carpanel p { margin:0 30px 15px 30px; }
+			/* Disappear */
+			.carbox.disappear .carpanel { opacity:0; }
+			.carbox.disappear .carpanel.selected { opacity:1;
+				transition:opacity 1s linear;
+				-webkit-transition:opacity 0.5s linear;
+				-moz-transition:opacity 0.5s linear;
+				-ms-transition:opacity 0.5s linear;
+				-o-transition:opacity 0.5s linear;
+				}
+			.carbox.disappear .carpanel.unselected { opacity:0;
+				transition:opacity 1s linear;
+				-webkit-transition:opacity 1s linear;
+				-moz-transition:opacity 1s linear;
+				-ms-transition:opacity 1s linear;
+				-o-transition:opacity 1s linear;
+				}
+			/* Fall */
+			.carbox.fall .carpanel { opacity:0; height:0; }
+			.carbox.fall .carpanel.selected { height:150px; opacity:1;
+				transition:height 0.2s linear;
+				-webkit-transition:height 0.2s linear;
+				-moz-transition:height 0.2s linear;
+				-ms-transition:height 0.2s linear;
+				-o-transition:height 0.2s linear;
+				}
+			/* Rotate */
+			@-webkit-keyframes rotateselected {
+				0% {
+				-webkit-transform: rotate(0deg);
+				opacity:0;
+				}
+				50% {
+				-webkit-transform: rotate(0deg);
+				opacity:0;
+				}
+				51% {
+				-webkit-transform: rotate(0deg);
+				opacity:1;
+				}
+				90% {
+				-webkit-transform: rotate(-5deg);
+				opacity:1;
+				}
+				100% {
+				-webkit-transform: rotate(0deg);
+				opacity:1;
+				}
+			}
+			@-webkit-keyframes rotateunselected {
+				0% {
+				-webkit-transform: rotate(0deg);
+				opacity:1;
+				}
+				25% {
+				-webkit-transform: rotate(5deg);
+				opacity:1;
+				}
+				50% {
+				-webkit-transform: rotate(0deg);
+				opacity:1;
+				}
+				51% {
+				-webkit-transform: rotate(0deg);
+				opacity:0;
+				}
+				100% {
+				-webkit-transform: rotate(0deg);
+				opacity:0;
+				}
+			}
+			.carbox.rotate .carpanel.selected { opacity:1;
+				-webkit-animation-name: rotateselected;
+				-webkit-animation-duration: 0.3s;
+				-webkit-animation-iteration-count: 1;
+				}
+			.carbox.rotate .carpanel.unselected { opacity:1;
+				-webkit-animation-name: rotateunselected;
+				-webkit-animation-duration: 0.3s;
+				-webkit-animation-iteration-count: 1;
+				}
+			/* Translate */
+			@-webkit-keyframes translateselected {
+				0% {
+				-webkit-transform: translate(0);
+				opacity:0;
+				}
+				50% {
+				-webkit-transform: translate(0);
+				opacity:0;
+				}
+				51% {
+				-webkit-transform: translate(0);
+				opacity:1;
+				}
+				90% {
+				-webkit-transform: translate(50px);
+				opacity:1;
+				}
+				100% {
+				-webkit-transform: translate(0);
+				opacity:1;
+				}
+			}
+			@-webkit-keyframes translateunselected {
+				0% {
+				-webkit-transform: translate(0);
+				opacity:1;
+				}
+				25% {
+				-webkit-transform: translate(-50px);
+				opacity:1;
+				}
+				50% {
+				-webkit-transform: translate(0);
+				opacity:1;
+				}
+				51% {
+				-webkit-transform: translate(0);
+				opacity:0;
+				}
+				100% {
+				-webkit-transform: translate(0);
+				opacity:0;
+				}
+			}
+			.carbox.translate .carpanel.selected { opacity:1;
+				-webkit-animation-name: translateselected;
+				-webkit-animation-duration: 0.2s;
+				-webkit-animation-iteration-count: 1;
+				}
+			.carbox.translate .carpanel.unselected { opacity:1;
+				-webkit-animation-name: translateunselected;
+				-webkit-animation-duration: 0.2s;
+				-webkit-animation-iteration-count: 1;
+				}
+			/* SimpleDisplay */
+			.simpledisplay { height:150px; }
+		</style>
+	</head>
+	<body>
+		<div class="root">
+			<h1>WebDisplay</h1>
+			<p>A MooTools component to display stacked content like carousels, tabs etc...</p>
+			<hr />
+			<h2>Carousels</h2>
+			<div class="carbox undetected disappear">
+				<ul class="carmenu">
+					<li class="previous"><a href="#paneln" title="Go to the previous panel" rel="prev">Previous</a></li>
+					<li class="selected"><a href="#panel1" title="Go to the panel #1">Panel 1</a></li>
+					<li><a href="#panel2" title="Go to the panel #2">Panel 2</a></li>
+					<li class="next"><a href="#panel2" title="Go to the next panel" rel="next">Next</a></li>
+				</ul>
+				<div class="carpanel selected" id="panel1">
+					<h3>Panel #1</h3>
+					<p>This markup is what you know as a carousel/tabbox.</p>
+				</div>
+				<div class="carpanel" id="panel2">
+					<h3>Panel #2</h3>
+					<p>It was implemented with MooTools.</p>
+				</div>
+			</div>
+			<div class="carbox undetected fall">
+				<ul class="carmenu">
+					<li class="previous"><a href="#panel2n" title="Go to the previous panel" rel="prev">Previous</a></li>
+					<li class="selected"><a href="#panel21" title="Go to the panel #1">Panel 1</a></li>
+					<li><a href="#panel22" title="Go to the panel #2">Panel 2</a></li>
+					<li><a href="#panel2n" title="Go to the panel #n">Panel n</a></li>
+					<li class="next"><a href="#panel22" title="Go to the next panel" rel="next">Next</a></li>
+				</ul>
+				<div class="carpanel selected" id="panel21">
+					<h3>Panel #1</h3>
+					<p>It is specially designed to work with CSS3 transitions. It just applies a few classes for your CSS.</p>
+					
+				</div>
+				<div class="carpanel" id="panel22">
+					<h3>Panel #2</h3>
+					<p>.selected to selected tab/tabbutton, .unselected to previously selected tab/tabbutton.</p>
+				</div>
+				<div class="carpanel" id="panel2n">
+					<h3>Panel #n</h3>
+					<p>.notdetected is removed at start, .paused is added when paused.</p>
+				</div>
+			</div>
+			<div class="carbox undetected translate">
+				<ul class="carmenu">
+					<li class="previous"><a href="#panel3n" title="Go to the previous panel" rel="prev">Previous</a></li>
+					<li class="selected"><a href="#panel31" title="Go to the panel #1">Panel 1</a></li>
+					<li><a href="#panel32" title="Go to the panel #2">Panel 2</a></li>
+					<li><a href="#panel3n" title="Go to the panel #n">Panel n</a></li>
+					<li class="next"><a href="#panel32" title="Go to the next panel" rel="next">Next</a></li>
+				</ul>
+				<div class="carpanel selected" id="panel31">
+					<h3>Panel #1</h3>
+					<p>If you click on <a href="#panel32">this link</a>, the next element will be selected.</p>
+				</div>
+				<div class="carpanel" id="panel32">
+					<h3>Panel #2</h3>
+					<p>Now, the hash in the address bar has changed. If you refresh, this tab will be selected by default.</p>
+				</div>
+				<div class="carpanel" id="panel3n">
+					<h3>Panel #n</h3>
+					<p>The same behavior will occur for any button allowing you users to share their page display transparently.</p>
+				</div>
+			</div>
+			<div class="carbox undetected rotate freq10">
+				<ul class="carmenu">
+					<li class="previous"><a href="#panel4n" title="Go to the previous panel" rel="prev">Previous</a></li>
+					<li class="selected"><a href="#panel41" title="Go to the panel #1">Panel 1</a></li>
+					<li><a href="#panel42" title="Go to the panel #2">Panel 2</a></li>
+					<li><a href="#panel4n" title="Go to the panel #n">Panel n</a></li>
+					<li class="next"><a href="#panel42" title="Go to the next panel" rel="next">Next</a></li>
+				</ul>
+				<div class="carpanel selected" id="panel41">
+					<h3>Panel #1</h3>
+					<p>This version is changing each 5s.</p>
+				</div>
+				<div class="carpanel" id="panel42">
+					<h3>Panel #2</h3>
+					<p>Of course, it stops changin' if you go over...</p>
+				</div>
+				<div class="carpanel" id="panel4n">
+					<h3>Panel #n</h3>
+					<p>I was made thanks to a freq5 class on the root element.</p>
+				</div>
+			</div>
+			<hr />
+			<h2>Pages</h2>
+			<div class="carbox undetected fall">
+				<ul class="carmenu">
+					<li class="previous"><a href="#pagen" title="Go to the previous page" rel="prev">Previous</a></li>
+					<li class="next"><a href="#page2" title="Go to the next page" rel="next">Next</a></li>
+				</ul>
+				<div class="carpanel selected" id="page1">
+					<h3>Page #1</h3>
+					<p>This version behaves like a pager.</p>
+				</div>
+				<div class="carpanel" id="page2">
+					<h3>Page #2</h3>
+					<p>It's very simple.</p>
+				</div>
+				<div class="carpanel" id="pagen">
+					<h3>Page #n</h3>
+					<p>But efficient.</p>
+				</div>
+			</div>
+			<hr />
+			<h2>Simple display</h2>
+			<div class="carbox undetected fall simpledisplay freq5">
+				<div class="carpanel selected" id="display1">
+					<h3>No menu</h3>
+					<p>This simple display just loop beetween the different panels.</p>
+				</div>
+				<div class="carpanel" id="displayn">
+					<h3>Just contents</h3>
+					<p>
+						This is the simplest usage of this script. Just add a class
+						like freq5 to change display each 5 seconds.
+					</p>
+				</div>
+			</div>
+			<hr />
+			<p>KissIsKool is a simple project made for small websites that want to Keep It Simple and Smart with MooTools.</p>
+		</div>
+		<script type="text/javascript" src="mootools-core-1.4.5.js"></script>
+		<script type="text/javascript" src="webdisplay.js"></script>
+	</body>
 </html>

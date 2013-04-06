@@ -1,0 +1,151 @@
+<html>
+	<head>
+		<title>KissIsKool : Menu</title>
+		<meta charset="utf-8" />
+		<style type="text/css">
+			* { margin:0; padding:0; }
+			/* Root style */
+			div.root { width:500px; padding:15px 30px; margin:0 auto; background:#dbdbdb; }
+			h1, h2 { margin:0 0 15px; }
+			hr { margin:15px 0; border:1px solid #000; background:#000; }
+			/* menu */
+			ul.popmenu { display:none; white-space:nowrap; }
+			ul.popmenu li { height:auto; list-tyle-type:none; }
+			.menu.selected>ul.popmenu { position:absolute; display:block; z-index:999; }
+			/* simplemenu */
+			ul.simplemenu { background:#333; height:30px; }
+			ul.simplemenu li { list-style-type:none; display:block; }
+			ul.simplemenu li a { display:block; line-height:30px; padding:0 20px; }
+			ul.simplemenu>li { float:left; }
+			ul.simplemenu>li a { color:#fff; }
+			ul.simplemenu li ul { background:#fff; border:1px solid #000; }
+			ul.simplemenu li li.menu>a:after { content:'>>'; }
+			ul.simplemenu li li a { color:#000; }
+			ul.simplemenu li li a { color:#000; }
+			/* button */
+			div.menu.button { display:inline-block; background:#333; height:30px; }
+			div.menu.button a { display:block; line-height:30px; padding:0 20px; }
+			div.menu.button p { color:#fff; line-height:30px; padding:0 20px; }
+			div.menu.button ul { background:#fff; border:1px solid #000; }
+			div.menu.button li { list-style-type:none; display:block; }
+			div.menu.button li a { color:#000; }
+			div.menu.button li a { color:#000; }
+		</style>
+	</head>
+	<body>
+		<div class="root">
+			<h2>Menus</h2>
+			<p>A MooTools component to display menus.</p>
+			<hr />
+			<h2>Simple menu</h2>
+			<ul class="simplemenu">
+				<li class="menu"><a href="#" title="">Item 1</a>
+					<ul class="popmenu">
+						<li><a href="#" title="">Item 1.1</a></li>
+						<li><a href="#" title="">Item 1.2</a></li>
+						<li><a href="#" title="">Item 1.3</a></li>
+						<li><a href="#" title="">Item 1.4</a></li>
+					</ul>
+				</li>
+				<li class="menu"><a href="#" title="">Item 2</a>
+					<ul class="popmenu">
+						<li><a href="#" title="">Item 2.1</a></li>
+						<li><a href="#" title="">Item 2.2</a></li>
+						<li><a href="#" title="">Item 2.3</a></li>
+						<li><a href="#" title="">Item 2.4</a></li>
+					</ul>
+				</li>
+				<li class="menu"><a href="#" title="">Item 3</a>
+					<ul class="popmenu">
+						<li><a href="#" title="">Item 3.1</a></li>
+						<li><a href="#" title="">Item 3.2</a></li>
+						<li><a href="#" title="">Item 3.3</a></li>
+						<li><a href="#" title="">Item 3.4</a></li>
+					</ul>
+				</li>
+				<li><a href="#" title="">Item 4</a></li>
+			</ul>
+			<hr />
+			<h2>Tree menu</h2>
+			<p>
+				Here we added a &quot;rigthtop&quot; class to the level 2 menu elements in order
+				to make them appear at the right top of their parent elements.
+			</p>
+			<ul class="simplemenu">
+				<li class="menu"><a href="#" title="">Item 1</a>
+					<ul class="popmenu">
+						<li class="menu righttop"><a href="#" title="">Item 1.1</a>
+							<ul class="popmenu">
+								<li class="menu righttop"><a href="#" title="">Item 1.1.1</a>
+									<ul class="popmenu">
+										<li class="menu righttop"><a href="#" title="">Item 1.1.1.1</a>
+											<ul class="popmenu">
+												<li><a href="#" title="">Item 1.1.1.1</a></li>
+												<li><a href="#" title="">Item 1.1.1.2</a></li>
+											</ul>
+										</li>
+										<li><a href="#" title="">Item 1.1.2</a></li>
+										<li><a href="#" title="">Item 1.1.3</a></li>
+										<li><a href="#" title="">Item 1.1.4</a></li>
+									</ul>
+								</li>
+								<li><a href="#" title="">Item 1.1.2</a></li>
+								<li><a href="#" title="">Item 1.1.3</a></li>
+								<li><a href="#" title="">Item 1.1.4</a></li>
+							</ul>
+						</li>
+						<li class="menu righttop"><a href="#" title="">Item 1.2</a>
+							<ul class="popmenu">
+								<li><a href="#" title="">Item 1.2.1</a></li>
+								<li><a href="#" title="">Item 1.2.2</a></li>
+								<li><a href="#" title="">Item 1.2.3</a></li>
+							</ul>
+						</li>
+						<li class="menu righttop"><a href="#" title="">Item 1.3</a>
+							<ul class="popmenu">
+								<li><a href="#" title="">Item 1.3.1</a></li>
+								<li><a href="#" title="">Item 1.3.2</a></li>
+							</ul>
+						</li>
+						<li><a href="#" title="">Item 1.4</a></li>
+					</ul>
+				</li>
+				<li class="menu"><a href="#" title="">Item 2</a>
+					<ul class="popmenu">
+						<li><a href="#" title="">Item 2.1</a></li>
+						<li><a href="#" title="">Item 2.2</a></li>
+						<li><a href="#" title="">Item 2.3</a></li>
+						<li><a href="#" title="">Item 2.4</a></li>
+					</ul>
+				</li>
+				<li class="menu"><a href="#" title="">Item 3</a>
+					<ul class="popmenu">
+						<li><a href="#" title="">Item 3.1</a></li>
+						<li><a href="#" title="">Item 3.2</a></li>
+						<li><a href="#" title="">Item 3.3</a></li>
+						<li><a href="#" title="">Item 3.4</a></li>
+					</ul>
+				</li>
+				<li><a href="#" title="">Item 4</a></li>
+			</ul>
+			<hr />
+			<h2>Label</h2>
+			<p>
+				For this label we added a &quot;centertopcenterbottom&quot; class in order to let appear
+				the popmenu at the center top of it's parent element relatively to it's center bottom.
+			</p>
+			<div class="menu button centertopcenterbottom"><p>Label</p>
+				<ul class="popmenu">
+					<li><a href="#" title="">Item 1.1</a></li>
+					<li><a href="#" title="">Item 1.2</a></li>
+					<li><a href="#" title="">Item 1.3</a></li>
+					<li><a href="#" title="">Item 1.4</a></li>
+				</ul>
+			</div>
+			<hr />
+		</div>
+		<script type="text/javascript" src="mootools-core-1.4.5.js"></script>
+		<script type="text/javascript" src="element.js"></script>
+		<script type="text/javascript" src="menu.js"></script>
+	</body>
+</html>
