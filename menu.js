@@ -51,7 +51,7 @@ var PopmenuManager=new Class({
 	handleHideMenuEvent: function(event)
 		{
 		var targetElement=event.target;
-		// Finding if element or one of it's ancestors is inside selected menu items
+		// Finding if element or one of it's ancestors is inside one of the selected menu items
 		var index=this.selectedMenuItems.indexOf(targetElement);
 		while(targetElement!=this.root&&index<0)
 			{
