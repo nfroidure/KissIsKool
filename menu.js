@@ -32,19 +32,25 @@ var PopmenuManager=new Class({
 			}
 		if(targetElement.hasClass('menu')&&!targetElement.hasClass('selected'))
 			{
-			var menus;
+			var menus, targetClass;
 			menus=targetElement.getElements('ul.popmenu');
 			if(menus[0]&&menus[0].childNodes.length)
 				{
+				targetClass=targetElement.get('class');
 				targetElement.addClass('selected');
-				var matches=targetElement.get('class')
+				this.selectedMenuItems.push(targetElement);
+				var matches=targetClass.match(/(?:^| )(?:parent([0-9]))(?:$| )/);
+				if(matches) {
+					for(var i=matches[1]; i>=0; i--) {
+						targetElement=targetElement.parentNode;
+					}
+				}
+				matches=targetClass
 					.match(/(?:^| )(?:(left|center|right)(top|center|bottom))(?:(left|center|right)(top|center|bottom))?(?:$| )/);
 				if(matches)
 					{
-					console.log({aHPos:matches[1],aVPos:matches[2],hPos:(matches[3]||'left'),vPos:(matches[4]||'top')});
 					menus[0].setAnchoredPosition(targetElement,{aHPos:matches[1],aVPos:matches[2],hPos:(matches[3]||'left'),vPos:(matches[4]||'top')});
 					}
-				this.selectedMenuItems.push(targetElement);
 				}
 			}
 		},
