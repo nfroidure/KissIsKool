@@ -9,10 +9,10 @@
 			div.root { margin:0 auto; background:#dbdbdb; }
 			hr { border:0.1rem solid #000; background:#000; }
 			/* menu */
-			ul.popmenu { display:none; white-space:nowrap; }
-			ul.popmenu li { height:auto; list-tyle-type:none; }
+			.menu .popmenu { display:none; white-space:nowrap; }
+			.menu .popmenu li { height:auto; list-tyle-type:none; }
 			.menu.selected>ul.popmenu { position:absolute; display:block; z-index:999; }
-			.popmenu .back { display:none; }
+			.menu .popmenu .back { display:none; }
 			/* simplemenu */
 			ul.simplemenu { background:#333; }
 			ul.simplemenu li { list-style-type:none; display:block; }
@@ -37,7 +37,7 @@
 				.menu.selected>ul.popmenu {
 					position:fixed; top:0; left:0; width:100%; height:100%;
 				}
-				.popmenu .back { display:block; }
+				.menu .popmenu .back { display:block; }
 				div.root {
 					font-size:1.2rem; line-height:1.2rem;
 					padding:1.2rem 1.2rem;
@@ -58,7 +58,7 @@
 				.menu.selected>ul.popmenu {
 					position:fixed; top:0; left:0; width:100%; height:100%;
 				}
-				.popmenu .back { display:block; }
+				.menu .popmenu .back { display:block; }
 				div.root {
 					font-size:1.2rem; line-height:1.2rem;
 					padding:1.2rem 2.4rem;
@@ -115,7 +115,10 @@
 	<body>
 		<div class="root">
 			<h2>Menus</h2>
-			<p>A MooTools component to display responsive menus.</p>
+			<p>A MooTools component to display responsive menus (
+			<a href="https://github.com/nfroidure/KissIsKool"
+				title="View the project repository">project repository</a> ).
+			</p>
 			<hr />
 			<h2>Simple menu</h2>
 			<p>
